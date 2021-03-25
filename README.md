@@ -4,3 +4,11 @@ Projet MSPR en java
 Avec le fameux ...
 # MATTHIEU NOEL
 # Cyrcyr
+
+tutoriel:
+
+expo init monapp
+
+cd monapp
+
+expo start
