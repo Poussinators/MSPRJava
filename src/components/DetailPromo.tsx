@@ -2,12 +2,12 @@ import React from 'react';
 import {Button, Text, View} from 'react-native';
 
 // @ts-ignore
-const QRCode = ({ navigation }) => {
+const detailPromo = ({ navigation }) => {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Ceci est la page du QRCode !</Text>
+            <Text>Ceci est la page des details !</Text>
         </View>
     );
 }
 
-export default QRCode;
+export default detailPromo;
