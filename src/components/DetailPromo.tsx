@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Text, View, StyleSheet} from 'react-native';
+import { Text, View, StyleSheet} from 'react-native';
 import { Promotion } from '../interfaces/promotion';
 
 export class DetailPromo extends Component {
@@ -15,19 +15,14 @@ export class DetailPromo extends Component {
         dateFin: "2021-05-01 10:26:00.000",
         imgPath: "https://test.com/img.png"
     }
+
+    navigation: any
     
-    // @ts-ignore
-    constructor(props) {
+    constructor(props: any) {
         super(props)
 
-        this.state = {
-          isLoading: false, // decides whether to show the activity indicator or not
-          searchInput: '', // the currently input text
-          name: '', // Pokemon name
-          pic: '', // Pokemon image URL
-          types: [], // Pokemon types array
-          desc: '', // Pokemon description
-        };
+        this.navigation = props.navigation
+        
     }
 
     render() {
