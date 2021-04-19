@@ -63,7 +63,7 @@ export class MsprAPI {
             resolve()
 
         })
-        
+
     }
 
     public getAPromotion(code: string): Promise<Promotion> {
@@ -81,7 +81,19 @@ export class MsprAPI {
             //     dateFin: "2021-05-01 10:26:00.000",
             //     imgPath: "https://test.com/img.png"
             // })
-            
+
+            // resolve({
+            //     codePromo: "CARTEKIWI",
+            //     libelle: "Mais si c'est possible !",
+            //     sujet: "sur chaque déplacement en train",
+            //     description: "Pour les moins de 16 ans, et tous ceux qui l'accompagnent jusqu'à 4 personnes paient tous moitié prix !",
+            //     valeurPromo: 50,
+            //     typePromo: 2,
+            //     dateDebut: "2021-03-11 10:26:00.000",
+            //     dateFin: "2021-05-01 10:26:00.000",
+            //     imgPath: "https://test.com/img.png"
+            // })
+
             fetch(`http://mspr.webqbe.com/promotion?token=${this.token}&codePromo=${code}`)
             .then(async (res) => {
                     const response: any = await res.json()
@@ -94,6 +106,6 @@ export class MsprAPI {
             })
 
         })
-    } 
+    }
 
 }

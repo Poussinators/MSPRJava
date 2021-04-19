@@ -3,7 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DetailPromo } from './components/DetailPromo';
-import listePromo from './components/ListePromo';
+import { listePromo } from './components/ListePromo';
 import {QRCodePromo} from './components/QRCode';
 
 const Stack = createStackNavigator();

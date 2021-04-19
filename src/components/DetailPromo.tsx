@@ -7,13 +7,13 @@ export class DetailPromo extends Component {
 
     navigation: any
     promotion: Promotion
-    
+
     constructor(props: any) {
         super(props)
 
         this.navigation = props.navigation
 
-        
+
         this.promotion = {
             codePromo: '',
             dateDebut: '',
@@ -27,30 +27,32 @@ export class DetailPromo extends Component {
             notYetLoaded: true
         }
 
-        const msprAPI: MsprAPI = new MsprAPI()
-        msprAPI.initToken().then(() => {
-            msprAPI.getAPromotion('UNICORN04').then((promotion: Promotion) => {
-                // console.log('====================================');
-                console.log('promotion :', promotion);
-                // console.log('====================================');
-                this.promotion = promotion
-                this.setState({
-                    loading: true
-                  });
-            })
-        })
+        let strListePromo = window.localStorage.getItem('listePromotion');
+        if (strListePromo == null) {
+            strListePromo = '';
+        }
+        const ListePromo = JSON.parse(strListePromo);
+        console.log('Nombre de promotion : ', ListePromo);
 
-
-        // props.navigation.setParams({
-        //     Title: promotion.codePromo
-        //   });
+        // @ts-ignore
+        const {promotionVise} = this.props.route.params;
+        console.log('la promo :', this.promotion);
+        console.log('nb promo', ListePromo.length);
+        console.log('user est ', promotionVise);
+        for (var i=0; i < ListePromo.length; i++) {
+            console.log('code promo ', i, ' ', ListePromo[i].codePromo);
+            if (promotionVise == ListePromo[i].codePromo) {
+                this.promotion = ListePromo[i];
+                console.log('la promo est', this.promotion);
+            }
+        }
 
     }
 
     render() {
 
         let fullSujet: string = ''
-        
+
         switch (this.promotion.typePromo) {
             case 1:
                 fullSujet = this.promotion.valeurPromo + '€ ' + this.promotion.sujet
@@ -59,11 +61,13 @@ export class DetailPromo extends Component {
             case 2:
                 fullSujet = this.promotion.valeurPromo + '% ' + this.promotion.sujet
                 break;
-        
+
             default:
                 fullSujet = this.promotion.valeurPromo + ' ' + this.promotion.sujet
                 break;
         }
+
+
 
         return (
             <SafeAreaView style={styles.wrapper}>
