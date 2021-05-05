@@ -1,4 +1,5 @@
 import { Promotion } from "../interfaces/promotion"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 // import { React } from "react"
 // import { ReactDOM } from "react-dom"
 
@@ -16,52 +17,71 @@ export class MsprAPI {
 
         return new Promise<void>(async (resolve, reject) => {
 
+            console.log('===== DEBUT MsprAPI.initToken =====')
+
             // Test si l'API est up.
+            console.log(`REQ: http://mspr.webqbe.com/`)
             const data: any = await (await fetch(`http://mspr.webqbe.com/`)).json()
+            console.log(`RES:`, data)
             if (data.name != 'MsprJavaOuPasWebService' || data.version == undefined) {
                 reject()
             }
 
             // Récupération du token d'API possiblement stocké en méoire interne.
-            const internalToken = window.localStorage.getItem("token")
+            const internalToken = await AsyncStorage.getItem("token")
 
-            // console.log('internalToken :', internalToken);
+            console.log('internalToken :', internalToken)
 
             if (internalToken != null) {
                 // TODO : s'il existe, check s'il est valide en interogeant l'API
+                console.log(`REQ: http://mspr.webqbe.com/getTokenValidity?token=${internalToken}`)
                 const response: any = await (await fetch(`http://mspr.webqbe.com/getTokenValidity?token=${internalToken}`)).json()
+                console.log('RES:', response)
 
-                // console.log('getTokenValidity :', response);
+                console.log('getTokenValidity :', response)
 
                 if(response.response[0].validity) {
-                    // console.log('internalToken is valid');
+                    console.log('internalToken is valid')
                     this.token = internalToken
                     resolve()
+                    console.log('=====  FIN MsprAPI.initToken  =====')
+                    return
                 }
-                // else {
-                //     console.log('internalToken is not valid.');
-                // }
+                else {
+                    console.log('internalToken is not valid.')
+                }
             }
-            // else {
-            //     console.log('internalToken doesn\'t exist.');
-            // }
+            else {
+                console.log('internalToken doesn\'t exist.')
+            }
 
+            console.log('Récupération d\'un nouveau token.')
+            console.log(`REQ: http://mspr.webqbe.com/token?login=${login}&password=${password}`)
             fetch(`http://mspr.webqbe.com/token?login=${login}&password=${password}`)
             .then(async (res) => {
                 const response: any = await res.json()
 
-                // console.log('response :', response);
+                console.log('RES:', response)
+                console.log('New Token :', response)
 
                 if (response.status == 'OK') {
+
                     this.token = response.token
                     // TODO : On enregistre le token dans l'internal storage
-                    window.localStorage.setItem("token", this.token);
+                    await AsyncStorage.setItem("token", this.token)
+
+                    resolve()
+
+                }
+                else {
+                    reject()
+                    
                 }
 
+                console.log('=====  FIN MsprAPI.initToken  =====')
+                return
+
             })
-
-            resolve()
-
         })
 
     }
@@ -69,40 +89,22 @@ export class MsprAPI {
     public getAPromotion(code: string): Promise<Promotion> {
 
         return new Promise<Promotion>((resolve, reject) => {
+            
+            console.log('===== DEBUT MsprAPI.getAPromotion =====')
 
-            // resolve({
-            //     codePromo: "UNICORN04",
-            //     libelle: "C'est la fete des licornes !",
-            //     sujet: "sur chaque article Licorne achetés.",
-            //     description: "Quelle dinguerie cette promotion !",
-            //     valeurPromo: 10,
-            //     typePromo: 2,
-            //     dateDebut: "2021-03-11 10:26:00.000",
-            //     dateFin: "2021-05-01 10:26:00.000",
-            //     imgPath: "https://test.com/img.png"
-            // })
-
-            // resolve({
-            //     codePromo: "CARTEKIWI",
-            //     libelle: "Mais si c'est possible !",
-            //     sujet: "sur chaque déplacement en train",
-            //     description: "Pour les moins de 16 ans, et tous ceux qui l'accompagnent jusqu'à 4 personnes paient tous moitié prix !",
-            //     valeurPromo: 50,
-            //     typePromo: 2,
-            //     dateDebut: "2021-03-11 10:26:00.000",
-            //     dateFin: "2021-05-01 10:26:00.000",
-            //     imgPath: "https://test.com/img.png"
-            // })
-
+            console.log(`REQ: http://mspr.webqbe.com/promotion?token=${this.token}&codePromo=${code}`)
             fetch(`http://mspr.webqbe.com/promotion?token=${this.token}&codePromo=${code}`)
             .then(async (res) => {
                     const response: any = await res.json()
+                    console.log('RES:', response)
                     if (response.status == 'OK') {
                         resolve(response.response[0])
                     }
                     else {
                         reject()
                     }
+                    console.log('=====  FIN MsprAPI.getAPromotion  =====')
+                    return
             })
 
         })
