@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, Button, Text, View, SafeAreaView} from 'react-native';
+import {FlatList, StyleSheet, Button, Text, View, TouchableOpacity} from 'react-native';
 import { Promotion } from '../interfaces/promotion';
 import { MsprAPI } from '../services/MsprAPI';
 
@@ -58,20 +58,25 @@ export class listePromo extends Component {
 
         console.log('ceci est la liste des promos :', this.listeDePromotion);
         return (
-            // style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <View style={{ flex: 1, alignItems: 'top', justifyContent: 'center' }}>
-                    <Button
-                        title="Aller sur la page du QRcode ?"
-                        onPress={() => this.navigation.navigate('QRCode')}
-                    />
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'top' }}>
+                <View style={{ width: '100%'}}>
+                        <Button
+                            title="Aller sur la page du QRcode ?"
+                            onPress={() => this.navigation.navigate('QRCode')}
+                            color="#009688"
+                        />
                 </View>
 
-                <Text>Voici tous les codes Promo précédemment enregistrés !</Text>
+                <Text>{`\n`}</Text>
+                <Text style={ styles.item }>Voici tous les codes Promo précédemment enregistrés :</Text>
+                <Text>{`\n`}</Text>
 
-                { this.listeDePromotion.map((item, key)=>(
-                    <Text onPress={() => this.navigation.navigate('detailPromo', { promotionVise: item })} key={key}>{item}</Text>
-                ))}
+                <View>
+                    { this.listeDePromotion.map((item, key)=>(
+                        <Text style={ styles.appButtonContainer } onPress={() => this.navigation.navigate('detailPromo', { promotionVise: item })} key={key}>{item}</Text>
+                    ))}
+                </View>
+
 
 
             </View>
@@ -92,9 +97,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  appButtonContainer: {
+    elevation: 8,
+    backgroundColor: "#009688",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginBottom: '15%',
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
+  },
 });
-
-
 
 // // @ts-ignore
 // const listePromo = ({ navigation }) => {
