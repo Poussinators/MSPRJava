@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {FlatList, StyleSheet, Button, Text, View, TouchableOpacity} from 'react-native';
 import { Promotion } from '../interfaces/promotion';
 import { MsprAPI } from '../services/MsprAPI';
+import {InternalStorage} from "../services/InternalStorage";
 
 export class listePromo extends Component {
 
@@ -38,20 +39,27 @@ export class listePromo extends Component {
         // }];
         // const internalTokene = window.localStorage.setItem('listePromotion',JSON.stringify(listePromotion));
 
-        let strListePromo = window.localStorage.getItem('listePromotion');
-        if (strListePromo == null) {
-            strListePromo = '';
-        }
-        const ListePromo = JSON.parse(strListePromo);
-        console.log('Nombre de promotion : ', ListePromo);
-        var data = [];
-        for (var i=0; i < ListePromo.length; i++) {
-            console.log('longueur ListePromo', ListePromo.length);
-            console.log('longueur ListePromo', ListePromo[i].codePromo);
-            data[i] = ListePromo[i].codePromo;
-            console.log('c\'est :' , data[i]);
-        }
-        this.listeDePromotion = data;
+        const internalStorage: InternalStorage = new InternalStorage()
+        internalStorage.getListPromotions().then((res: Promotion[]) => {
+            console.log('Return of getListPromotions :', res)
+            this.listeDePromotion = res;
+            this.setState({loading: true})
+        })
+
+        // let strListePromo = window.localStorage.getItem('listePromotion');
+        // if (strListePromo == null) {
+        //     strListePromo = '';
+        // }
+        // const ListePromo = JSON.parse(strListePromo);
+        // console.log('Nombre de promotion : ', ListePromo);
+        // var data = [];
+        // for (var i=0; i < ListePromo.length; i++) {
+        //     console.log('longueur ListePromo', ListePromo.length);
+        //     console.log('longueur ListePromo', ListePromo[i].codePromo);
+        //     data[i] = ListePromo[i].codePromo;
+        //     console.log('c\'est :' , data[i]);
+        // }
+        // this.listeDePromotion = data;
     }
 
     render() {
@@ -73,7 +81,7 @@ export class listePromo extends Component {
 
                 <View>
                     { this.listeDePromotion.map((item, key)=>(
-                        <Text style={ styles.appButtonContainer } onPress={() => this.navigation.navigate('detailPromo', { promotionVise: item })} key={key}>{item}</Text>
+                        <Text style={ styles.appButtonContainer } onPress={() => this.navigation.navigate('detailPromo', { promotionVise: item })} key={key}>{item.codePromo}</Text>
                     ))}
                 </View>
 
