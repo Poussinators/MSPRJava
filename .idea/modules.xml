@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/MSPRJava.iml" filepath="$PROJECT_DIR$/.idea/MSPRJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PromoCode.iml" filepath="$PROJECT_DIR$/.idea/PromoCode.iml" />
     </modules>
   </component>
 </project>
