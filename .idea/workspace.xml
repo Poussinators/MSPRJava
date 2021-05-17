@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cbca8135-2278-49d7-8ffe-43ffbd606ae5" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="JupyterTrust" id="b7453c56-e071-4a93-b517-8f6552abfceb" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="ts.external.directory.path" value="D:\EPSI\Cours\B3\MSPRJava\MSPRJava\node_modules\typescript\lib" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cbca8135-2278-49d7-8ffe-43ffbd606ae5" name="Default Changelist" comment="" />
+      <created>1616669124015</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1616669124015</updated>
+      <workItem from="1616669125954" duration="344000" />
+      <workItem from="1616669548232" duration="1625000" />
+      <workItem from="1616675143679" duration="3678000" />
+      <workItem from="1616679985405" duration="572000" />
+      <workItem from="1616680567519" duration="135000" />
+    </task>
+    <task id="LOCAL-00001" summary="Premier commit - mise en place des fichiers">
+      <created>1616669389762</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1616669389762</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Commit mis en place des fichiers / structure">
+      <created>1616669605372</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616669605372</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Mise en place navigation">
+      <created>1616676275147</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1616676275147</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Mise à jour gitIgnore + tejage yarn">
+      <created>1616678299514</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1616678299514</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Changements App vers Main + quelques arrangements d'affichages">
+      <created>1616680353103</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1616680353103</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Suppression import non utilisé suite à mon dernier commit">
+      <created>1616680474645</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1616680474645</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Premier commit - mise en place des fichiers" />
+    <MESSAGE value="Commit mis en place des fichiers / structure" />
+    <MESSAGE value="Mise en place navigation" />
+    <MESSAGE value="Mise à jour gitIgnore + tejage yarn" />
+    <MESSAGE value="Changements App vers Main + quelques arrangements d'affichages" />
+    <MESSAGE value="Suppression import non utilisé suite à mon dernier commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Suppression import non utilisé suite à mon dernier commit" />
+  </component>
+</project>
