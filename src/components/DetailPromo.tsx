@@ -1,17 +1,45 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, SafeAreaView} from 'react-native';
 import { Promotion } from '../interfaces/promotion';
+import { MsprAPI } from '../services/MsprAPI';
 
 export class DetailPromo extends Component {
 
     navigation: any
+    promotion: Promotion
     
     constructor(props: any) {
         super(props)
 
         this.navigation = props.navigation
 
-        // console.log(props.navigation)
+        
+        this.promotion = {
+            codePromo: '',
+            dateDebut: '',
+            dateFin: '',
+            description: '',
+            imgPath: '',
+            libelle: '',
+            sujet: '',
+            typePromo: 0,
+            valeurPromo: 0,
+            notYetLoaded: true
+        }
+
+        const msprAPI: MsprAPI = new MsprAPI()
+        msprAPI.initToken().then(() => {
+            msprAPI.getAPromotion('UNICORN04').then((promotion: Promotion) => {
+                // console.log('====================================');
+                console.log('promotion :', promotion);
+                // console.log('====================================');
+                this.promotion = promotion
+                this.setState({
+                    loading: true
+                  });
+            })
+        })
+
 
         // props.navigation.setParams({
         //     Title: promotion.codePromo
@@ -23,27 +51,27 @@ export class DetailPromo extends Component {
 
         let fullSujet: string = ''
         
-        switch (promotion.typePromo) {
+        switch (this.promotion.typePromo) {
             case 1:
-                fullSujet = promotion.valeurPromo + '€ ' + promotion.sujet
+                fullSujet = this.promotion.valeurPromo + '€ ' + this.promotion.sujet
                 break;
 
             case 2:
-                fullSujet = promotion.valeurPromo + '% ' + promotion.sujet
+                fullSujet = this.promotion.valeurPromo + '% ' + this.promotion.sujet
                 break;
         
             default:
-                fullSujet = promotion.valeurPromo + ' ' + promotion.sujet
+                fullSujet = this.promotion.valeurPromo + ' ' + this.promotion.sujet
                 break;
         }
 
         return (
             <SafeAreaView style={styles.wrapper}>
                 <View style={styles.container}>
-                    <Text style={styles.libelleText}>{promotion.libelle}</Text>
+                    <Text style={styles.libelleText}>{this.promotion.libelle}</Text>
                     <View style={styles.description}>
                         <Text style={styles.sujet}>{fullSujet}</Text>
-                        <Text>{promotion.description}</Text>
+                        <Text>{this.promotion.description}</Text>
                     </View>
                 </View>
             </SafeAreaView>
@@ -88,14 +116,14 @@ const styles = StyleSheet.create({
 
   });
 
-const promotion: Promotion = {
-    codePromo: "UNICORN04",
-    libelle: "C'est la fete des licornes !",
-    sujet: "sur chaque article Licorne achetés.",
-    description: "Quelle dinguerie cette promotion !",
-    valeurPromo: 10,
-    typePromo: 2,
-    dateDebut: "2021-03-11 10:26:00.000",
-    dateFin: "2021-05-01 10:26:00.000",
-    imgPath: "https://test.com/img.png"
-}
+// const promotion: Promotion = {
+//     codePromo: "UNICORN04",
+//     libelle: "C'est la fete des licornes !",
+//     sujet: "sur chaque article Licorne achetés.",
+//     description: "Quelle dinguerie cette promotion !",
+//     valeurPromo: 10,
+//     typePromo: 2,
+//     dateDebut: "2021-03-11 10:26:00.000",
+//     dateFin: "2021-05-01 10:26:00.000",
+//     imgPath: "https://test.com/img.png"
+// }

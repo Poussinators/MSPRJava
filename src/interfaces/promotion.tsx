@@ -7,5 +7,6 @@ export interface Promotion {
     typePromo: number,
     dateDebut: string | Date,
     dateFin: string | Date,
-    imgPath: string
+    imgPath: string,
+    notYetLoaded?: Boolean
 }
