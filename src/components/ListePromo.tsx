@@ -66,7 +66,7 @@ export class listePromo extends Component {
 
         console.log('ceci est la liste des promos :', this.listeDePromotion);
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'top' }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
                 <View style={{ width: '100%'}}>
                         <Button
                             title="Aller sur la page du QRcode ?"
