@@ -11,7 +11,6 @@
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
-    "AsyncStorage": "^0.1.5",
     "expo": "~40.0.0",
     "expo-barcode-scanner": "~9.1.0",
     "expo-constants": "~9.3.3",
@@ -23,10 +22,8 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.2",
-    "react-native-simple-store": "^2.0.2",
     "react-native-svg": "^12.1.0",
-    "react-native-web": "~0.13.12",
-    "store": "^2.0.12"
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
