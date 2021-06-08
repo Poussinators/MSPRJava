@@ -8,6 +8,7 @@ export class listePromo extends Component {
 
     navigation: any
     listeDePromotion: Promotion[] = []
+    internalStorage: any;
 
     constructor(props: any) {
         super(props)
@@ -83,6 +84,7 @@ export class listePromo extends Component {
                     { this.listeDePromotion.map((item, key)=>(
                         <Text style={ styles.appButtonContainer } onPress={() => this.navigation.navigate('detailPromo', { promotionVise: item })} key={key}>{item.codePromo}</Text>
                     ))}
+                    <Text style={ styles.appButtonContainer } onPress={() =>{const internalStorage: InternalStorage = new InternalStorage(); internalStorage.removePromotion("ETE2020")} }>Cuicui</Text>
                 </View>
 
 

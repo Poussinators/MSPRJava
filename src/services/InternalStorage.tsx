@@ -58,7 +58,7 @@ export class InternalStorage {
         let ListePromos: Promotion[] = await this.getListPromotions()
 
         for (let index = 0; index < ListePromos.length; index++) {
-            if (ListePromos[index].codePromo = promotion.codePromo) {
+            if (ListePromos[index].codePromo == promotion.codePromo) {
                 console.warn('Une promotion avec ce code est déjà enregistrée !')
                 console.log('=====  FIN InternalStorage.addPromotionToList  =====')
                 throw "CODEPROMO already exists"
@@ -80,7 +80,7 @@ export class InternalStorage {
         let ListePromos: Promotion[] = await this.getListPromotions()
 
         for (let index = 0; index < ListePromos.length; index++) {
-            if (ListePromos[index].codePromo = codePromo) {
+            if (ListePromos[index].codePromo == codePromo) {
                 const DeletedPromo: Promotion = ListePromos.splice(index, 1)[0]
                 console.log('Promotion trouvée et supprimée de la liste.', DeletedPromo)
                 break;

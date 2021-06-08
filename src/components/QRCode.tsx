@@ -17,13 +17,6 @@ export class QRCodePromo extends React.Component {
       super(props);
       this.state = {hasPermission : null, scanned : false};
       this.navigation = props.navigation;
-
-      const internalStorage: InternalStorage = new InternalStorage()
-      internalStorage.getListPromotions().then((res: Promotion[]) => {
-          console.log('Return of getListPromotions :', res)
-          this.listeDePromotion = res;
-          this.setState({loading: true})
-      })
     }
 
   render(){
@@ -37,10 +30,12 @@ export class QRCodePromo extends React.Component {
     )
   }
 
+  // initialisation des variables
   __renderBarCodeScanned = () => () => {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
 
+    // Demande de permission de la caméra
     useEffect(() => {
       (async () => {
         const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -51,7 +46,7 @@ export class QRCodePromo extends React.Component {
     // retour du scan
     const handleBarCodeScanned = ({ type = "" , data = ""}) => {
       setScanned(true);
-      //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     
     // Envoie de la request
       const msprAPI: MsprAPI = new MsprAPI()
@@ -61,16 +56,16 @@ export class QRCodePromo extends React.Component {
               console.log(promotion);
 
               // enregistrement de la promotion
-
               const internalStorage: InternalStorage = new InternalStorage();
 
               internalStorage.addPromotionToList(promotion).catch((err) => {
                   if (err !== 'CODEPROMO already exists') {
+                    alert("Promo already exists")
                       throw err;
                   }
                   else{
-                    alert(` La promotion ${promotion.codePromo} a été enregistré `);
-                    this.navigation.navigate('detailPromo', { promotionVise: promotion });
+                    alert(`The promotion ${promotion.codePromo} has been saved `);
+                    //this.navigation.navigate('detailPromo', { promotionVise: promotion });
                   }
               })
             })
@@ -78,7 +73,7 @@ export class QRCodePromo extends React.Component {
         
     };
 
-    // permition pour la camera
+    // retour de la permission pour la camera
     if (hasPermission === null) {
       return <Text>Camera's permission accepted</Text>;
     }
