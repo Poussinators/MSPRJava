@@ -10,9 +10,13 @@ const password = require('../../appSettings.json').password
 
 export class MsprAPI {
 
-    readonly token: string = ''
+    private token: string = ''
 
     constructor() {}
+
+    public getToken(): string {
+        return this.token
+    }
 
     public async initToken() {
 

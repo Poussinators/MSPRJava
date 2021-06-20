@@ -11,8 +11,8 @@ test("L'objet MsprAPI se crée sans problèmes.", () => {
 
     expect(MsprAPIObj).toBeDefined();
     expect(typeof MsprAPIObj).toBe('object');
-    expect(typeof MsprAPIObj.token).toBe('string');
-    expect(MsprAPIObj.token).toBe('');
+    expect(typeof MsprAPIObj.getToken()).toBe('string');
+    expect(MsprAPIObj.getToken()).toBe('');
     expect(typeof MsprAPIObj.initToken).toBe('function');
     expect(typeof MsprAPIObj.getAPromotion).toBe('function');
 
@@ -21,11 +21,11 @@ test("L'objet MsprAPI se crée sans problèmes.", () => {
 test("L'objet MsprAPI peut récupérer un token valide.", async () => {
 
     const MsprAPIObj: MsprAPI = new MsprAPI()
-    expect(MsprAPIObj.token).toBe('');
+    expect(MsprAPIObj.getToken()).toBe('');
 
     await MsprAPIObj.initToken()
-    expect(MsprAPIObj.token != '').toBe(true);
-    expect((await (await fetch(`http://mspr.webqbe.com/getTokenValidity?token=${MsprAPIObj.token}`)).json()).response[0].validity).toBe(true);
+    expect(MsprAPIObj.getToken() != '').toBe(true);
+    expect((await (await fetch(`http://mspr.webqbe.com/getTokenValidity?token=${MsprAPIObj.getToken()}`)).json()).response[0].validity).toBe(true);
 
 });
 
