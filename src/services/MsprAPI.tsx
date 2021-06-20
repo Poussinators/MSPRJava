@@ -1,5 +1,6 @@
 import { Promotion } from "../interfaces/promotion"
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import "isomorphic-fetch";
 // import { React } from "react"
 // import { ReactDOM } from "react-dom"
 
@@ -9,7 +10,7 @@ const password = require('../../appSettings.json').password
 
 export class MsprAPI {
 
-    private token: string = ''
+    readonly token: string = ''
 
     constructor() {}
 
