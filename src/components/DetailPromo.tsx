@@ -29,66 +29,16 @@ export class DetailPromo extends Component {
             notYetLoaded: true
         }
 
-        // let strListePromo = window.localStorage.getItem('listePromotion');
-        // if (strListePromo == null) {
-        //     strListePromo = '';
-        // }
-        // const ListePromo = JSON.parse(strListePromo);
-        // console.log('Nombre de promotion : ', ListePromo);
-
-        // let ListePromo: Promotion[] =[ {
-        //     codePromo: "CARTEKIWI",
-        //     libelle: "Mais si c'est possible !",
-        //     sujet: "sur chaque déplacement en train",
-        //     description: "Pour les moins de 16 ans, et tous ceux qui l'accompagnent jusqu'à 4 personnes paient tous moitié prix !",
-        //     valeurPromo: 50,
-        //     typePromo: 2,
-        //     dateDebut: "2021-03-11 10:26:00.000",
-        //     dateFin: "2021-05-01 10:26:00.000",
-        //     imgPath: "https://test.com/img.png"
-        // },
-        // {
-        //     codePromo: "UNICORN04",
-        //     libelle: "C'est la fete des licornes !",
-        //     sujet: "sur chaque article Licorne achetés.",
-        //     description: "Quelle dinguerie cette promotion !",
-        //     valeurPromo: 10,
-        //     typePromo: 2,
-        //     dateDebut: "2021-03-11 10:26:00.000",
-        //     dateFin: "2021-05-01 10:26:00.000",
-        //     imgPath: "https://test.com/img.png"
-        // }];
-        let ListePromoV2: Promotion[] =[];
-        console.log('On est avant l\'internal storage promise ici');
-        const internalStorage: InternalStorage = new InternalStorage()
-        internalStorage.getListPromotions().then((res: Promotion[]) => {
-            console.log('Return of getListPromotions :', res);
-            ListePromoV2 = res;
-            console.log('res est : ', ListePromoV2, ' et ', res)
-            this.setState({loading: true})
-        })
-
-        console.log('On passe par là.');
         // @ts-ignore
         const {PromoVisee} = this.props.route.params;
-        console.log('user est ', PromoVisee);
-        // for (var i=0; i < ListePromoV2.length; i++) {
-        //     console.log('code promo ', i, ' ', ListePromoV2[i].codePromo);
-        //     if (PromoVisee.codePromo == ListePromoV2[i].codePromo) {
-        //         this.promotion = ListePromoV2[i];
-        //         console.log('la promo est', this.promotion);
-        //     }
-        // }
         this.promotion = PromoVisee;
 
     }
 
     render() {
-        console.log('la promo actuellement est ', this.promotion)
         if (this.promotion.typePromo == null) {
 
         } else {
-            console.log('la promo deuxiemement est ', this.promotion)
             let fullSujet: string = ''
 
             switch (this.promotion.typePromo) {

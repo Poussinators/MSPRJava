@@ -14,60 +14,18 @@ export class listePromo extends Component {
 
         this.navigation = props.navigation
 
-
-        // this.listeDePromotion =[ {
-        //     codePromo: "CARTEKIWI",
-        //     libelle: "Mais si c'est possible !",
-        //     sujet: "sur chaque déplacement en train",
-        //     description: "Pour les moins de 16 ans, et tous ceux qui l'accompagnent jusqu'à 4 personnes paient tous moitié prix !",
-        //     valeurPromo: 50,
-        //     typePromo: 2,
-        //     dateDebut: "2021-03-11 10:26:00.000",
-        //     dateFin: "2021-05-01 10:26:00.000",
-        //     imgPath: "https://test.com/img.png"
-        // },
-        // {
-        //     codePromo: "UNICORN04",
-        //     libelle: "C'est la fete des licornes !",
-        //     sujet: "sur chaque article Licorne achetés.",
-        //     description: "Quelle dinguerie cette promotion !",
-        //     valeurPromo: 10,
-        //     typePromo: 2,
-        //     dateDebut: "2021-03-11 10:26:00.000",
-        //     dateFin: "2021-05-01 10:26:00.000",
-        //     imgPath: "https://test.com/img.png"
-        // }];
-        // const internalTokene = window.localStorage.setItem('listePromotion',JSON.stringify(listePromotion));
-
         const internalStorage: InternalStorage = new InternalStorage()
         internalStorage.getListPromotions().then((res: Promotion[]) => {
-            console.log('Return of getListPromotions dans liste :', res)
             this.listeDePromotion = res;
             this.setState({loading: true})
         })
 
-        // let strListePromo = window.localStorage.getItem('listePromotion');
-        // if (strListePromo == null) {
-        //     strListePromo = '';
-        // }
-        // const ListePromo = JSON.parse(strListePromo);
-        // console.log('Nombre de promotion : ', ListePromo);
-        // var data = [];
-        // for (var i=0; i < ListePromo.length; i++) {
-        //     console.log('longueur ListePromo', ListePromo.length);
-        //     console.log('longueur ListePromo', ListePromo[i].codePromo);
-        //     data[i] = ListePromo[i].codePromo;
-        //     console.log('c\'est :' , data[i]);
-        // }
-        // this.listeDePromotion = data;
     }
 
     render() {
         if (this.listeDePromotion == null) {
 
         } else {
-
-            console.log('ceci est la liste des promos :', this.listeDePromotion);
             return (
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
                     <View style={{width: '100%'}}>
