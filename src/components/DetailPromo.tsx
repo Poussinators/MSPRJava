@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, SafeAreaView} from 'react-native';
 import { Promotion } from '../interfaces/promotion';
 import { MsprAPI } from '../services/MsprAPI';
+import {InternalStorage} from "../services/InternalStorage";
+import {listePromo} from "./ListePromo";
 
 export class DetailPromo extends Component {
 
@@ -27,22 +29,53 @@ export class DetailPromo extends Component {
             notYetLoaded: true
         }
 
-        let strListePromo = window.localStorage.getItem('listePromotion');
-        if (strListePromo == null) {
-            strListePromo = '';
-        }
-        const ListePromo = JSON.parse(strListePromo);
-        console.log('Nombre de promotion : ', ListePromo);
+        // let strListePromo = window.localStorage.getItem('listePromotion');
+        // if (strListePromo == null) {
+        //     strListePromo = '';
+        // }
+        // const ListePromo = JSON.parse(strListePromo);
+        // console.log('Nombre de promotion : ', ListePromo);
+
+        // let ListePromo: Promotion[] =[ {
+        //     codePromo: "CARTEKIWI",
+        //     libelle: "Mais si c'est possible !",
+        //     sujet: "sur chaque déplacement en train",
+        //     description: "Pour les moins de 16 ans, et tous ceux qui l'accompagnent jusqu'à 4 personnes paient tous moitié prix !",
+        //     valeurPromo: 50,
+        //     typePromo: 2,
+        //     dateDebut: "2021-03-11 10:26:00.000",
+        //     dateFin: "2021-05-01 10:26:00.000",
+        //     imgPath: "https://test.com/img.png"
+        // },
+        // {
+        //     codePromo: "UNICORN04",
+        //     libelle: "C'est la fete des licornes !",
+        //     sujet: "sur chaque article Licorne achetés.",
+        //     description: "Quelle dinguerie cette promotion !",
+        //     valeurPromo: 10,
+        //     typePromo: 2,
+        //     dateDebut: "2021-03-11 10:26:00.000",
+        //     dateFin: "2021-05-01 10:26:00.000",
+        //     imgPath: "https://test.com/img.png"
+        // }];
+        let ListePromoV2: Promotion[] =[];
+        const internalStorage: InternalStorage = new InternalStorage()
+        internalStorage.getListPromotions().then((res: Promotion[]) => {
+            console.log('Return of getListPromotions :', res)
+            ListePromoV2 = res;
+            console.log('res est : ', ListePromoV2, ' et ', res)
+            this.setState({loading: true})
+        })
 
         // @ts-ignore
         const {promotionVise} = this.props.route.params;
         console.log('la promo :', this.promotion);
-        console.log('nb promo', ListePromo.length);
+        console.log('nb promo', ListePromoV2.length);
         console.log('user est ', promotionVise);
-        for (var i=0; i < ListePromo.length; i++) {
-            console.log('code promo ', i, ' ', ListePromo[i].codePromo);
-            if (promotionVise == ListePromo[i].codePromo) {
-                this.promotion = ListePromo[i];
+        for (var i=0; i < ListePromoV2.length; i++) {
+            console.log('code promo ', i, ' ', ListePromoV2[i].codePromo);
+            if (promotionVise.codePromo == ListePromoV2[i].codePromo) {
+                this.promotion = ListePromoV2[i];
                 console.log('la promo est', this.promotion);
             }
         }
@@ -50,36 +83,40 @@ export class DetailPromo extends Component {
     }
 
     render() {
+        console.log('la promo actuellement est ', this.promotion)
+        if (this.promotion.typePromo == null) {
 
-        let fullSujet: string = ''
+        } else {
+            console.log('la promo deuxiemement est ', this.promotion)
+            let fullSujet: string = ''
 
-        switch (this.promotion.typePromo) {
-            case 1:
-                fullSujet = this.promotion.valeurPromo + '€ ' + this.promotion.sujet
-                break;
+            switch (this.promotion.typePromo) {
+                case 1:
+                    fullSujet = this.promotion.valeurPromo + '€ ' + this.promotion.sujet
+                    break;
 
-            case 2:
-                fullSujet = this.promotion.valeurPromo + '% ' + this.promotion.sujet
-                break;
+                case 2:
+                    fullSujet = this.promotion.valeurPromo + '% ' + this.promotion.sujet
+                    break;
 
-            default:
-                fullSujet = this.promotion.valeurPromo + ' ' + this.promotion.sujet
-                break;
-        }
+                default:
+                    fullSujet = this.promotion.valeurPromo + ' ' + this.promotion.sujet
+                    break;
+            }
 
 
-
-        return (
-            <SafeAreaView style={styles.wrapper}>
-                <View style={styles.container}>
-                    <Text style={styles.libelleText}>{this.promotion.libelle}</Text>
-                    <View style={styles.description}>
-                        <Text style={styles.sujet}>{fullSujet}</Text>
-                        <Text>{this.promotion.description}</Text>
+            return (
+                <SafeAreaView style={styles.wrapper}>
+                    <View style={styles.container}>
+                        <Text style={styles.libelleText}>{this.promotion.libelle}</Text>
+                        <View style={styles.description}>
+                            <Text style={styles.sujet}>{fullSujet}</Text>
+                            <Text>{this.promotion.description}</Text>
+                        </View>
                     </View>
-                </View>
-            </SafeAreaView>
-        );
+                </SafeAreaView>
+            );
+        }
     }
 
 }

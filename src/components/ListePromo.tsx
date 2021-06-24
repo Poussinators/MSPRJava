@@ -15,34 +15,34 @@ export class listePromo extends Component {
         this.navigation = props.navigation
 
 
-        // const listePromotion: Promotion[] =[ {
-        //     codePromo: "CARTEKIWI",
-        //     libelle: "Mais si c'est possible !",
-        //     sujet: "sur chaque déplacement en train",
-        //     description: "Pour les moins de 16 ans, et tous ceux qui l'accompagnent jusqu'à 4 personnes paient tous moitié prix !",
-        //     valeurPromo: 50,
-        //     typePromo: 2,
-        //     dateDebut: "2021-03-11 10:26:00.000",
-        //     dateFin: "2021-05-01 10:26:00.000",
-        //     imgPath: "https://test.com/img.png"
-        // },
-        // {
-        //     codePromo: "UNICORN04",
-        //     libelle: "C'est la fete des licornes !",
-        //     sujet: "sur chaque article Licorne achetés.",
-        //     description: "Quelle dinguerie cette promotion !",
-        //     valeurPromo: 10,
-        //     typePromo: 2,
-        //     dateDebut: "2021-03-11 10:26:00.000",
-        //     dateFin: "2021-05-01 10:26:00.000",
-        //     imgPath: "https://test.com/img.png"
-        // }];
+        this.listeDePromotion =[ {
+            codePromo: "CARTEKIWI",
+            libelle: "Mais si c'est possible !",
+            sujet: "sur chaque déplacement en train",
+            description: "Pour les moins de 16 ans, et tous ceux qui l'accompagnent jusqu'à 4 personnes paient tous moitié prix !",
+            valeurPromo: 50,
+            typePromo: 2,
+            dateDebut: "2021-03-11 10:26:00.000",
+            dateFin: "2021-05-01 10:26:00.000",
+            imgPath: "https://test.com/img.png"
+        },
+        {
+            codePromo: "UNICORN04",
+            libelle: "C'est la fete des licornes !",
+            sujet: "sur chaque article Licorne achetés.",
+            description: "Quelle dinguerie cette promotion !",
+            valeurPromo: 10,
+            typePromo: 2,
+            dateDebut: "2021-03-11 10:26:00.000",
+            dateFin: "2021-05-01 10:26:00.000",
+            imgPath: "https://test.com/img.png"
+        }];
         // const internalTokene = window.localStorage.setItem('listePromotion',JSON.stringify(listePromotion));
 
         const internalStorage: InternalStorage = new InternalStorage()
         internalStorage.getListPromotions().then((res: Promotion[]) => {
             console.log('Return of getListPromotions :', res)
-            this.listeDePromotion = res;
+            // this.listeDePromotion = res;
             this.setState({loading: true})
         })
 
@@ -63,33 +63,38 @@ export class listePromo extends Component {
     }
 
     render() {
+        if (this.listeDePromotion == null) {
 
-        console.log('ceci est la liste des promos :', this.listeDePromotion);
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
-                <View style={{ width: '100%'}}>
+        } else {
+
+            console.log('ceci est la liste des promos :', this.listeDePromotion);
+            return (
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
+                    <View style={{width: '100%'}}>
                         <Button
                             title="Aller sur la page du QRcode ?"
                             onPress={() => this.navigation.navigate('QRCode')}
                             color="#009688"
                         />
+                    </View>
+
+                    <Text>{`\n`}</Text>
+                    <Text style={styles.item}>Voici tous les codes Promo précédemment enregistrés :</Text>
+                    <Text>{`\n`}</Text>
+
+                    <View>
+                        {this.listeDePromotion.map((item, key) => (
+                            <Text style={styles.appButtonContainer}
+                                  onPress={() => this.navigation.navigate('detailPromo', {promotionVise: item})}
+                                  key={key}>{item.codePromo}</Text>
+                        ))}
+                    </View>
+
+
                 </View>
 
-                <Text>{`\n`}</Text>
-                <Text style={ styles.item }>Voici tous les codes Promo précédemment enregistrés :</Text>
-                <Text>{`\n`}</Text>
-
-                <View>
-                    { this.listeDePromotion.map((item, key)=>(
-                        <Text style={ styles.appButtonContainer } onPress={() => this.navigation.navigate('detailPromo', { promotionVise: item })} key={key}>{item.codePromo}</Text>
-                    ))}
-                </View>
-
-
-
-            </View>
-
-        );
+            );
+        }
     }
 
 }
