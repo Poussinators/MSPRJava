@@ -59,22 +59,24 @@ export class DetailPromo extends Component {
         //     imgPath: "https://test.com/img.png"
         // }];
         let ListePromoV2: Promotion[] =[];
+        console.log('On est avant l\'internal storage promise ici');
         const internalStorage: InternalStorage = new InternalStorage()
         internalStorage.getListPromotions().then((res: Promotion[]) => {
-            console.log('Return of getListPromotions :', res)
+            console.log('Return of getListPromotions :', res);
             ListePromoV2 = res;
             console.log('res est : ', ListePromoV2, ' et ', res)
             this.setState({loading: true})
         })
 
+        console.log('On passe par là.');
         // @ts-ignore
-        const {promotionVise} = this.props.route.params;
+        const {res} = this.props.route.params;
         console.log('la promo :', this.promotion);
         console.log('nb promo', ListePromoV2.length);
-        console.log('user est ', promotionVise);
+        console.log('user est ', res);
         for (var i=0; i < ListePromoV2.length; i++) {
             console.log('code promo ', i, ' ', ListePromoV2[i].codePromo);
-            if (promotionVise.codePromo == ListePromoV2[i].codePromo) {
+            if (res.codePromo == ListePromoV2[i].codePromo) {
                 this.promotion = ListePromoV2[i];
                 console.log('la promo est', this.promotion);
             }
