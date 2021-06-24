@@ -8,7 +8,6 @@ export class listePromo extends Component {
 
     navigation: any
     listeDePromotion: Promotion[] = []
-    internalStorage: any;
 
     constructor(props: any) {
         super(props)
@@ -16,7 +15,7 @@ export class listePromo extends Component {
         this.navigation = props.navigation
 
 
-        // const listePromotion: Promotion[] =[ {
+        // this.listeDePromotion =[ {
         //     codePromo: "CARTEKIWI",
         //     libelle: "Mais si c'est possible !",
         //     sujet: "sur chaque déplacement en train",
@@ -42,7 +41,7 @@ export class listePromo extends Component {
 
         const internalStorage: InternalStorage = new InternalStorage()
         internalStorage.getListPromotions().then((res: Promotion[]) => {
-            console.log('Return of getListPromotions :', res)
+            console.log('Return of getListPromotions dans liste :', res)
             this.listeDePromotion = res;
             this.setState({loading: true})
         })
@@ -64,34 +63,38 @@ export class listePromo extends Component {
     }
 
     render() {
+        if (this.listeDePromotion == null) {
 
-        console.log('ceci est la liste des promos :', this.listeDePromotion);
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
-                <View style={{ width: '100%'}}>
+        } else {
+
+            console.log('ceci est la liste des promos :', this.listeDePromotion);
+            return (
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
+                    <View style={{width: '100%'}}>
                         <Button
                             title="Aller sur la page du QRcode ?"
                             onPress={() => this.navigation.navigate('QRCode')}
                             color="#009688"
                         />
+                    </View>
+
+                    <Text>{`\n`}</Text>
+                    <Text style={styles.item}>Voici tous les codes Promo précédemment enregistrés :</Text>
+                    <Text>{`\n`}</Text>
+
+                    <View>
+                        {this.listeDePromotion.map((item, key) => (
+                            <Text style={styles.appButtonContainer}
+                                  onPress={() => this.navigation.navigate('detailPromo', {promotionVise: item})}
+                                  key={key}>{item.codePromo}</Text>
+                        ))}
+                    </View>
+
+
                 </View>
 
-                <Text>{`\n`}</Text>
-                <Text style={ styles.item }>Voici tous les codes Promo précédemment enregistrés :</Text>
-                <Text>{`\n`}</Text>
-
-                <View>
-                    { this.listeDePromotion.map((item, key)=>(
-                        <Text style={ styles.appButtonContainer } onPress={() => this.navigation.navigate('detailPromo', { promotionVise: item })} key={key}>{item.codePromo}</Text>
-                    ))}
-                    <Text style={ styles.appButtonContainer } onPress={() =>{const internalStorage: InternalStorage = new InternalStorage(); internalStorage.removePromotion("ETE2020")} }>Cuicui</Text>
-                </View>
-
-
-
-            </View>
-
-        );
+            );
+        }
     }
 
 }
