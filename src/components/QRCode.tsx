@@ -66,6 +66,7 @@ export class QRCodePromo extends React.Component {
                   else{
                     alert(`The promotion ${promotion.codePromo} has been saved `);
                     //this.navigation.navigate('detailPromo', { promotionVise: promotion });
+                    // redirection maintenant
                   }
               })
             })
