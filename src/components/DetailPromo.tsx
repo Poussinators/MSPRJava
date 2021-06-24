@@ -70,17 +70,16 @@ export class DetailPromo extends Component {
 
         console.log('On passe par là.');
         // @ts-ignore
-        const {res} = this.props.route.params;
-        console.log('la promo :', this.promotion);
-        console.log('nb promo', ListePromoV2.length);
-        console.log('user est ', res);
-        for (var i=0; i < ListePromoV2.length; i++) {
-            console.log('code promo ', i, ' ', ListePromoV2[i].codePromo);
-            if (res.codePromo == ListePromoV2[i].codePromo) {
-                this.promotion = ListePromoV2[i];
-                console.log('la promo est', this.promotion);
-            }
-        }
+        const {PromoVisee} = this.props.route.params;
+        console.log('user est ', PromoVisee);
+        // for (var i=0; i < ListePromoV2.length; i++) {
+        //     console.log('code promo ', i, ' ', ListePromoV2[i].codePromo);
+        //     if (PromoVisee.codePromo == ListePromoV2[i].codePromo) {
+        //         this.promotion = ListePromoV2[i];
+        //         console.log('la promo est', this.promotion);
+        //     }
+        // }
+        this.promotion = PromoVisee;
 
     }
 

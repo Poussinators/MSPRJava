@@ -85,7 +85,7 @@ export class listePromo extends Component {
                     <View>
                         {this.listeDePromotion.map((item, key) => (
                             <Text style={styles.appButtonContainer}
-                                  onPress={() => this.navigation.navigate('detailPromo', {promotionVise: item})}
+                                  onPress={() => this.navigation.navigate('detailPromo', {PromoVisee: item})}
                                   key={key}>{item.codePromo}</Text>
                         ))}
                     </View>
