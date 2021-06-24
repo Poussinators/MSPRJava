@@ -45,7 +45,10 @@ export class listePromo extends Component {
                             <Text style={styles.appButtonContainer}
                                   onPress={() => this.navigation.navigate('detailPromo', {PromoVisee: item})}
                                   key={key}>{item.codePromo}</Text>
-                        ))}
+                                ))}
+                                <Text style={ styles.appButtonContainer } onPress={() =>{
+                                      const internalStorage: InternalStorage = new InternalStorage(); internalStorage.removePromotion("ETE2020")} }>Cuicui</Text>
+                         
                     </View>
 
 

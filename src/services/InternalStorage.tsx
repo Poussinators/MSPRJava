@@ -59,7 +59,7 @@ export class InternalStorage {
 
         for (let index = 0; index < ListePromos.length; index++) {
             if (ListePromos[index].codePromo == promotion.codePromo) {
-                console.warn('Une promotion avec ce code est déjà enregistrée !')
+                //console.warn('Une promotion avec ce code est déjà enregistrée !')
                 console.log('=====  FIN InternalStorage.addPromotionToList  =====')
                 throw "CODEPROMO already exists"
             }
