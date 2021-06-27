@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
-import {FlatList, StyleSheet, Button, Text, View, TouchableOpacity} from 'react-native';
+import React, { Component } from 'react';
+import { FlatList, StyleSheet, Button, Text, View, TouchableOpacity } from 'react-native';
 import { Promotion } from '../interfaces/promotion';
 import { MsprAPI } from '../services/MsprAPI';
-import {InternalStorage} from "../services/InternalStorage";
+import { InternalStorage } from "../services/InternalStorage";
+import { useNavigation } from '@react-navigation/native'
 
 export class listePromo extends Component {
 
@@ -10,15 +11,21 @@ export class listePromo extends Component {
     listeDePromotion: Promotion[] = []
 
     constructor(props: any) {
+
         super(props)
 
-        this.navigation = props.navigation
+        props.navigation.addListener(
+            'focus',
+            () => {
+                const internalStorage: InternalStorage = new InternalStorage()
+                internalStorage.getListPromotions().then((res: Promotion[]) => {
+                    this.listeDePromotion = res;
+                    this.setState({ loading: true })
+                })
+            }
+        )
 
-        const internalStorage: InternalStorage = new InternalStorage()
-        internalStorage.getListPromotions().then((res: Promotion[]) => {
-            this.listeDePromotion = res;
-            this.setState({loading: true})
-        })
+        this.navigation = props.navigation
 
     }
 
@@ -27,8 +34,8 @@ export class listePromo extends Component {
 
         } else {
             return (
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
-                    <View style={{width: '100%'}}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
+                    <View style={{ width: '100%' }}>
                         <Button
                             title="Aller sur la page du QRcode ?"
                             onPress={() => this.navigation.navigate('QRCode')}
@@ -43,8 +50,8 @@ export class listePromo extends Component {
                     <View>
                         {this.listeDePromotion.map((item, key) => (
                             <Text style={styles.appButtonContainer}
-                                  onPress={() => this.navigation.navigate('detailPromo', {PromoVisee: item})}
-                                  key={key}>{item.codePromo}</Text>
+                                onPress={() => this.navigation.navigate('detailPromo', { PromoVisee: item })}
+                                key={key}>{item.codePromo}</Text>
                         ))}
                     </View>
 
@@ -59,28 +66,28 @@ export class listePromo extends Component {
 
 
 const styles = StyleSheet.create({
-  container: {
-   flex: 1,
-   paddingTop: 22
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-  appButtonContainer: {
-    elevation: 8,
-    backgroundColor: "#009688",
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    marginBottom: '15%',
-    fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-    textTransform: "uppercase"
-  },
+    container: {
+        flex: 1,
+        paddingTop: 22
+    },
+    item: {
+        padding: 10,
+        fontSize: 18,
+        height: 44,
+    },
+    appButtonContainer: {
+        elevation: 8,
+        backgroundColor: "#009688",
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        marginBottom: '15%',
+        fontSize: 18,
+        color: "#fff",
+        fontWeight: "bold",
+        alignSelf: "center",
+        textTransform: "uppercase"
+    },
 });
 
 // // @ts-ignore
