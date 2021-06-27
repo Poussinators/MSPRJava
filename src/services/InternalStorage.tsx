@@ -80,7 +80,7 @@ export class InternalStorage {
         let ListePromos: Promotion[] = await this.getListPromotions()
 
         for (let index = 0; index < ListePromos.length; index++) {
-            if (ListePromos[index].codePromo = codePromo) {
+            if (ListePromos[index].codePromo == codePromo) {
                 const DeletedPromo: Promotion = ListePromos.splice(index, 1)[0]
                 console.log('Promotion trouvée et supprimée de la liste.', DeletedPromo)
                 break;
