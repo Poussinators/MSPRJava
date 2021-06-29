@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, SafeAreaView} from 'react-native';
+import {Text, View, StyleSheet, SafeAreaView, Image, ImageBackground, Button} from 'react-native';
 import { Promotion } from '../interfaces/promotion';
-import { MsprAPI } from '../services/MsprAPI';
-import {InternalStorage} from "../services/InternalStorage";
-import {listePromo} from "./ListePromo";
 
 export class DetailPromo extends Component {
 
@@ -59,12 +56,16 @@ export class DetailPromo extends Component {
             return (
                 <SafeAreaView style={styles.wrapper}>
                     <View style={styles.container}>
-                        <Text style={styles.libelleText}>{this.promotion.libelle}</Text>
-                        <View style={styles.description}>
-                            <Text style={styles.sujet}>{fullSujet}</Text>
-                            <Text>{this.promotion.description}</Text>
-                        </View>
+                        <ImageBackground source={{uri: 'https://placekitten.com/300/300'}}>
+                            <Text>{`\n`}</Text>
+                            <Text style={styles.libelleText}>{this.promotion.libelle}</Text>
+                            <View style={styles.descriptionWrapper}>
+                                <Text style={styles.fullSujet}>{fullSujet}</Text>
+                                <Text style={styles.description}>{this.promotion.description}</Text>
+                            </View>
+                        </ImageBackground>
                     </View>
+                    <Text>Suppression</Text>
                 </SafeAreaView>
             );
         }
@@ -86,36 +87,36 @@ const styles = StyleSheet.create({
 
     libelleText: {
         fontSize: 27,
-        backgroundColor: "#ffffff",
-        shadowColor: "#00ff00",
-        shadowOffset: {
-            height: 50,
-            width: 50
-        },
-        shadowRadius: 50,
-        shadowOpacity: 1
+        elevation: 8,
+        backgroundColor: "#009688",
+        opacity: 0.7,
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        marginBottom: '3%',
+        color: "#ffffff",
+        alignSelf: "center",
     },
 
     description: {
-        marginTop: 20,
-        backgroundColor: "#aaaaaa",
-        width: 350
+        fontSize: 18,
+        color: "#ffffff"
     },
 
-    sujet: {
-        fontSize: 18
+    fullSujet: {
+        fontSize: 20,
+        color: "#ffffff",
+        fontWeight: "bold",
+        alignSelf: "center"
+    },
+
+    descriptionWrapper: {
+        backgroundColor: "#009688",
+        elevation: 8,
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        opacity: 0.7
     },
 
   });
-
-// const promotion: Promotion = {
-//     codePromo: "UNICORN04",
-//     libelle: "C'est la fete des licornes !",
-//     sujet: "sur chaque article Licorne achetés.",
-//     description: "Quelle dinguerie cette promotion !",
-//     valeurPromo: 10,
-//     typePromo: 2,
-//     dateDebut: "2021-03-11 10:26:00.000",
-//     dateFin: "2021-05-01 10:26:00.000",
-//     imgPath: "https://test.com/img.png"
-// }
