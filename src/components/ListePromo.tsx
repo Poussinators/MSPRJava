@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, Button, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Button, Text, View } from 'react-native';
 import { Promotion } from '../interfaces/promotion';
-import { MsprAPI } from '../services/MsprAPI';
 import { InternalStorage } from "../services/InternalStorage";
-import { useNavigation } from '@react-navigation/native'
 
 export class listePromo extends Component {
 
@@ -17,6 +15,7 @@ export class listePromo extends Component {
         props.navigation.addListener(
             'focus',
             () => {
+                console.log('focus event');
                 const internalStorage: InternalStorage = new InternalStorage()
                 internalStorage.getListPromotions().then((res: Promotion[]) => {
                     this.listeDePromotion = res;
@@ -44,7 +43,7 @@ export class listePromo extends Component {
                     </View>
 
                     <Text>{`\n`}</Text>
-                    <Text style={styles.item}>Voici tous les codes Promo précédemment enregistrés :</Text>
+                    <Text style={ styles.item }>Voici tous les codes Promo précédemment enregistrés :</Text>
                     <Text>{`\n`}</Text>
 
                     <View>
