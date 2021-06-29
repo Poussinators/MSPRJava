@@ -52,20 +52,20 @@ export class DetailPromo extends Component {
                     break;
             }
 
-
+            //'https://placekitten.com/300/300'
             return (
                 <SafeAreaView style={styles.wrapper}>
                     <View style={styles.container}>
-                        <ImageBackground source={{uri: 'https://placekitten.com/300/300'}}>
-                            <Text>{`\n`}</Text>
-                            <Text style={styles.libelleText}>{this.promotion.libelle}</Text>
-                            <View style={styles.descriptionWrapper}>
-                                <Text style={styles.fullSujet}>{fullSujet}</Text>
-                                <Text style={styles.description}>{this.promotion.description}</Text>
-                            </View>
+                        <ImageBackground source={{uri: this.promotion.imgPath}} style={{width: '100%', height: '100%'}}>
+                        <Text>{`\n`}</Text>
+                        <Text style={styles.libelleText}>{this.promotion.libelle}</Text>
+                        <View style={styles.descriptionWrapper}>
+                            <Text style={styles.fullSujet}>{fullSujet}</Text>
+                            <Text style={styles.description}>{this.promotion.description}</Text>
+                        </View>
+                        <Text style={styles.suppression}>Suppression</Text>
                         </ImageBackground>
                     </View>
-                    <Text>Suppression</Text>
                 </SafeAreaView>
             );
         }
@@ -106,8 +106,7 @@ const styles = StyleSheet.create({
     fullSujet: {
         fontSize: 20,
         color: "#ffffff",
-        fontWeight: "bold",
-        alignSelf: "center"
+        fontWeight: "bold"
     },
 
     descriptionWrapper: {
@@ -118,5 +117,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         opacity: 0.7
     },
+
+    suppression: {
+        backgroundColor: "#ff0000",
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        width: '100px',
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0
+    }
 
   });
