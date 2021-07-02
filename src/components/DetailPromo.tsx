@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Text, View, StyleSheet, SafeAreaView, Image, ImageBackground, Button} from 'react-native';
+import {Text, View, StyleSheet, SafeAreaView, ImageBackground} from 'react-native';
 import { Promotion } from '../interfaces/promotion';
+import { InternalStorage } from "../services/InternalStorage";
 
 export class DetailPromo extends Component {
 
@@ -33,6 +34,13 @@ export class DetailPromo extends Component {
     }
 
     render() {
+
+        function suppressionRedirection(promotion: Promotion, navigation: any){
+            const internalStorage: InternalStorage = new InternalStorage();
+            internalStorage.removePromotion(promotion.codePromo);
+            navigation.navigate('listePromo');
+        }
+
         if (this.promotion.typePromo == null) {
 
         } else {
@@ -52,8 +60,6 @@ export class DetailPromo extends Component {
                     break;
             }
 
-            //'https://placekitten.com/300/300'
-            // this.promotion.imgPath
             return (
                 <SafeAreaView style={styles.wrapper}>
                     <View style={styles.container}>
@@ -65,7 +71,8 @@ export class DetailPromo extends Component {
                                 <Text style={styles.description}>{this.promotion.description}</Text>
                             </View>
                             <View>
-                                <Text style={styles.suppression}>Suppression</Text>
+                                <Text style={styles.suppression}
+                                      onPress={() => suppressionRedirection(this.promotion, this.navigation)}>Suppression</Text>
                             </View>
                         </ImageBackground>
                     </View>
