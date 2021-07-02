@@ -59,7 +59,7 @@ export class QRCodePromo extends React.Component {
               const internalStorage: InternalStorage = new InternalStorage();
 
               internalStorage.addPromotionToList(promotion).catch((err) => {
-                  if (err == -1) {
+                  if (err == 1) {
                     alert("Promo already exists")
                       throw err;
                   }
