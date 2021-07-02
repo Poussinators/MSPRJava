@@ -46,7 +46,7 @@ export class QRCodePromo extends React.Component {
     // retour du scan
     const handleBarCodeScanned = ({ type = "" , data = ""}) => {
       setScanned(true);
-      //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
 
     // Envoie de la request
       const msprAPI: MsprAPI = new MsprAPI()
@@ -59,7 +59,7 @@ export class QRCodePromo extends React.Component {
               const internalStorage: InternalStorage = new InternalStorage();
 
               internalStorage.addPromotionToList(promotion).catch((err) => {
-                  if (err == 1) {
+                  if (err == 'CODEPROMO already exists') {
                     alert("Promo already exists")
                       throw err;
                   }
