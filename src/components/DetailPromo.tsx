@@ -53,17 +53,20 @@ export class DetailPromo extends Component {
             }
 
             //'https://placekitten.com/300/300'
+            // this.promotion.imgPath
             return (
                 <SafeAreaView style={styles.wrapper}>
                     <View style={styles.container}>
-                        <ImageBackground source={{uri: this.promotion.imgPath}} style={{width: '100%', height: '100%'}}>
-                        <Text>{`\n`}</Text>
-                        <Text style={styles.libelleText}>{this.promotion.libelle}</Text>
-                        <View style={styles.descriptionWrapper}>
-                            <Text style={styles.fullSujet}>{fullSujet}</Text>
-                            <Text style={styles.description}>{this.promotion.description}</Text>
-                        </View>
-                        <Text style={styles.suppression}>Suppression</Text>
+                        <ImageBackground source={{uri: 'https://placekitten.com/300/300'}} style={{width: '100%', height: '100%'}}>
+                            <Text>{`\n`}</Text>
+                            <Text style={styles.libelleText}>{this.promotion.libelle}</Text>
+                            <View style={styles.descriptionWrapper}>
+                                <Text style={styles.fullSujet}>{fullSujet}</Text>
+                                <Text style={styles.description}>{this.promotion.description}</Text>
+                            </View>
+                            <View>
+                                <Text style={styles.suppression}>Suppression</Text>
+                            </View>
                         </ImageBackground>
                     </View>
                 </SafeAreaView>
@@ -123,11 +126,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingVertical: 10,
         paddingHorizontal: 12,
-        width: '100px',
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0
+        width: 105,
+        bottom: 0,
     }
 
-  });
+});
