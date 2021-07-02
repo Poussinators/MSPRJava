@@ -57,7 +57,7 @@ export class DetailPromo extends Component {
             return (
                 <SafeAreaView style={styles.wrapper}>
                     <View style={styles.container}>
-                        <ImageBackground source={{uri: 'https://placekitten.com/300/300'}} style={{width: '100%', height: '100%'}}>
+                        <ImageBackground source={{uri: this.promotion.imgPath}} style={{width: '100%', height: '100%'}}>
                             <Text>{`\n`}</Text>
                             <Text style={styles.libelleText}>{this.promotion.libelle}</Text>
                             <View style={styles.descriptionWrapper}>
