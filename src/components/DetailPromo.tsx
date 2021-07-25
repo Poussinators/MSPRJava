@@ -35,10 +35,11 @@ export class DetailPromo extends Component {
 
     render() {
 
-        function suppressionRedirection(promotion: Promotion, navigation: any){
+        async function suppressionRedirection(promotion: Promotion, navigation: any){
             const internalStorage: InternalStorage = new InternalStorage();
-            internalStorage.removePromotion(promotion.codePromo);
-            navigation.navigate('listePromo');
+            await internalStorage.removePromotion(promotion.codePromo);
+            // navigation.navigate('listePromo');
+            navigation.goBack(null);
         }
 
         if (this.promotion.typePromo == null) {

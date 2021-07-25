@@ -18,6 +18,7 @@ export class MsprAPI {
         return this.token
     }
 
+    // Permet d'initialiser le token avant toute utilisation
     public async initToken() {
 
         return new Promise<void>(async (resolve, reject) => {
@@ -37,8 +38,10 @@ export class MsprAPI {
 
             console.log('internalToken :', internalToken)
 
+            // Si on a trouvé un token dans l'internal storage.
             if (internalToken != null) {
-                // TODO : s'il existe, check s'il est valide en interogeant l'API
+
+                // On test le token trouvé.
                 console.log(`REQ: http://mspr.webqbe.com/getTokenValidity?token=${internalToken}`)
                 const response: any = await (await fetch(`http://mspr.webqbe.com/getTokenValidity?token=${internalToken}`)).json()
                 console.log('RES:', response)

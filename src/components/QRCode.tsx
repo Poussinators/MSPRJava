@@ -46,29 +46,45 @@ export class QRCodePromo extends React.Component {
     // retour du scan
     const handleBarCodeScanned = ({ type = "" , data = ""}) => {
       setScanned(true);
-      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
 
     // Envoie de la request
       const msprAPI: MsprAPI = new MsprAPI()
         msprAPI.initToken().then(() => {
             msprAPI.getAPromotion(data).then((promotion: Promotion) => {
 
-              console.log(promotion);
+              // console.log(promotion);
 
               // enregistrement de la promotion
               const internalStorage: InternalStorage = new InternalStorage();
 
-              internalStorage.addPromotionToList(promotion).catch((err) => {
-                  if (err == 'CODEPROMO already exists') {
-                    alert("Promo already exists")
+              if(typeof promotion !== "undefined") {
+                internalStorage.addPromotionToList(promotion)
+              
+                .then(() => {
+                  alert(`The promotion ${promotion.codePromo} has been saved `);
+                  this.navigation.goBack(null);
+                  this.navigation.navigate('detailPromo', { PromoVisee: promotion });
+                  // redirection maintenant
+                  setScanned(false);
+                })
+                
+                .catch((err) => {
+                    if (err == 'CODEPROMO already exists') {
+                      alert(`Cette promotion a déjà été enregistrée. (${promotion.codePromo})`);
+                      setScanned(false);
+                    }
+                    else{
                       throw err;
-                  }
-                  else{
-                    alert(`The promotion ${promotion.codePromo} has been saved `);
-                    this.navigation.navigate('detailPromo', { PromoVisee: promotion });
-                    // redirection maintenant
-                  }
-              })
+                    }
+                })
+              }
+              else {
+                alert(`Ce code n'appartient à aucune promotion ... (${data})`);
+                setScanned(false);
+              }
+              
             })
         })
 
@@ -88,7 +104,7 @@ export class QRCodePromo extends React.Component {
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={StyleSheet.absoluteFillObject}
         />
-        {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+        {scanned && /*<Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />*/ <Text style={styles.loadingText}>Chargement en cours ...</Text>}
       </View>
     );
   }
@@ -111,4 +127,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderWidth: 1,
   },
+  loadingText: {
+    fontSize: 20,
+    color: "#ffffff",
+    fontWeight: "bold"
+  }
 });
